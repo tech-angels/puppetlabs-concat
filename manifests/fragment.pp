@@ -1,4 +1,4 @@
-# == Define: concat::fragment
+# == Define: puppetlab-concat::fragment
 #
 # Creates a concat_fragment in the catalogue
 #
@@ -14,7 +14,7 @@
 #   By default all files gets a 10_ prefix in the directory you can set it to
 #   anything else using this to influence the order of the content in the file
 #
-define concat::fragment(
+define puppetlab-concat::fragment(
     $target,
     $ensure  = undef,
     $content = undef,
@@ -24,7 +24,7 @@ define concat::fragment(
   validate_string($target)
 
   if $ensure != undef {
-    warning('The $ensure parameter to concat::fragment is deprecated and has no effect.')
+    warning('The $ensure parameter to puppetlab-concat::fragment is deprecated and has no effect.')
   }
 
   validate_string($content)
@@ -46,7 +46,7 @@ define concat::fragment(
 
   $safe_target_name = regsubst($target, '[/:\n\s]', '_', 'GM')
 
-  concat_fragment { $name:
+  puppetlab_concat_fragment { $name:
     tag     => $safe_target_name,
     order   => $order,
     content => $content,

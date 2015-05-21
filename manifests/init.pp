@@ -1,4 +1,4 @@
-# == Define: concat
+# == Define: puppetlab-concat
 #
 # Sets up so that you can use fragments to build a final config file,
 #
@@ -36,7 +36,7 @@
 #   to a file resource. Default value: undefined.
 #
 
-define concat(
+define puppetlab-concat(
   $ensure         = 'present',
   $path           = $name,
   $owner          = undef,
@@ -70,7 +70,7 @@ define concat(
   }
 
   if $force != undef {
-    warning('The $force parameter to concat is deprecated and has no effect.')
+    warning('The $force parameter to puppetlab-concat is deprecated and has no effect.')
   }
 
   $safe_name            = regsubst($name, '[/:\n\s]', '_', 'G')
@@ -92,7 +92,7 @@ define concat(
   }
 
   if $ensure == 'present' {
-    concat_file { $name:
+    puppetlab_concat_file { $name:
       tag            => $safe_name,
       path           => $path,
       owner          => $owner,
@@ -106,14 +106,14 @@ define concat(
     }
 
     if $_append_header {
-      concat_fragment { "${name}_header":
+      puppetlab_concat_fragment { "${name}_header":
         tag     => $safe_name,
         content => $warn_message,
         order   => '0',
       }
     }
   } else {
-    concat_file { $name:
+    puppetlab_concat_file { $name:
       ensure => $ensure,
       tag    => $safe_name,
       path   => $path,

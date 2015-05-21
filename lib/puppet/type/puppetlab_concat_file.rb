@@ -3,14 +3,14 @@ require 'puppet/type/file/group'
 require 'puppet/type/file/mode'
 require 'puppet/util/checksums'
 
-Puppet::Type.newtype(:concat_file) do
+Puppet::Type.newtype(:puppetlab_concat_file) do
   @doc = "Gets all the file fragments and puts these into the target file.
     This will mostly be used with exported resources.
 
     example:
       Concat_fragment <<| tag == 'unique_tag' |>>
 
-      concat_file { '/tmp/file':
+      puppetlab_concat_file { '/tmp/file':
         tag            => 'unique_tag', # Mandatory
         path           => '/tmp/file',  # Optional. If given it overrides the resource name
         owner          => 'root',       # Optional. Default to undef
@@ -35,7 +35,7 @@ Puppet::Type.newtype(:concat_file) do
   end
 
   newparam(:tag) do
-    desc "Tag reference to collect all concat_fragment's with the same tag"
+    desc "Tag reference to collect all puppetlab_concat_fragment's with the same tag"
   end
 
   newparam(:path) do
@@ -81,9 +81,9 @@ Puppet::Type.newtype(:concat_file) do
     defaultto false
   end
 
-  autorequire(:concat_fragment) do
+  autorequire(:puppetlab_concat_fragment) do
     catalog.resources.collect do |r|
-      if r.is_a?(Puppet::Type.type(:concat_fragment)) && r[:tag] == self[:tag]
+      if r.is_a?(Puppet::Type.type(:puppetlab_concat_fragment)) && r[:tag] == self[:tag]
         r.name
       end
     end.compact
@@ -95,7 +95,7 @@ Puppet::Type.newtype(:concat_file) do
     content_fragments = []
 
     resources = catalog.resources.select do |r|
-      r.is_a?(Puppet::Type.type(:concat_fragment)) && r[:tag] == self[:tag]
+      r.is_a?(Puppet::Type.type(:puppetlab_concat_fragment)) && r[:tag] == self[:tag]
     end
 
     resources.each do |r|

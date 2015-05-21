@@ -1,10 +1,10 @@
-Puppet::Type.newtype(:concat_fragment) do
-  @doc = "Create a concat fragment to be used by concat.
-    the `concat_fragment` type creates a file fragment to be collected by concat based on the tag.
+Puppet::Type.newtype(:puppetlab_concat_fragment) do
+  @doc = "Create a puppetlab_concat fragment to be used by puppetlab_concat.
+    the `puppetlab_concat_fragment` type creates a file fragment to be collected by puppetlab_concat based on the tag.
     The example is based on exported resources.
 
     Example:
-    @@concat_fragment { \"uniqe_name_${::fqdn}\":
+    @@puppetlab_concat_fragment { \"uniqe_name_${::fqdn}\":
       tag => 'unique_name',
       order => 10, # Optional. Default to 10
       content => 'some content' # OR
@@ -35,7 +35,7 @@ Puppet::Type.newtype(:concat_fragment) do
   end
 
   newparam(:tag) do
-    desc "Tag name to be used by concat to collect all concat_fragments by tag name"
+    desc "Tag name to be used by puppetlab_concat to collect all puppetlab_concat_fragments by tag name"
   end
 
   validate do
